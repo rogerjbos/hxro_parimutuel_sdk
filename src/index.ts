@@ -20,8 +20,27 @@ const Paris = async () => {
 
     const parimutuels = await parimutuelWeb3.getParimutuels(marketsByTime, 5);
     
-    console.log(JSON.stringify(parimutuels[0]))
-};
+    console.log(`\n Market Pair: BTCUSD \n Market Expiry Interval: 1 min \n`)
     
-Paris()
-
+    const usdcDec = 1_000_000
+    
+    parimutuels.forEach((cont) => {
+        const strike = cont.info.parimutuel.strike.toNumber() / usdcDec;
+        
+        const slotId = cont.info.parimutuel.slot.toNumber();
+        
+        const longSide = cont.info.parimutuel.activeLongPositions.toNumber() / usdcDec;
+        
+        const shortSide = cont.info.parimutuel.activeShortPositions.toNumber() / usdcDec;
+        
+        const expired = cont.info.parimutuel.expired
+        
+        console.log(`\n Strike: $ ${strike}
+        \ Slot: ${slotId}
+        \ Longs: $ ${longSide}
+        \ Shorts: $ ${shortSide}
+        \ Exprired?: ${expired? 'true' : 'false'}`)
+        })
+    };
+    
+    Paris()

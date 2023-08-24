@@ -46,6 +46,19 @@ const marketTerm = 60; // The expires are in seconds, so this would be the 1 min
 const marketsByTime = markets.filter((market) => market.duration === marketTerm);
 const Paris = () => __awaiter(void 0, void 0, void 0, function* () {
     const parimutuels = yield parimutuelWeb3.getParimutuels(marketsByTime, 5);
-    console.log(JSON.stringify(parimutuels[0]));
+    console.log(`\n Market Pair: BTCUSD \n Market Expiry Interval: 1 min \n`);
+    const usdcDec = 1000000;
+    parimutuels.forEach((cont) => {
+        const strike = cont.info.parimutuel.strike.toNumber() / usdcDec;
+        const slotId = cont.info.parimutuel.slot.toNumber();
+        const longSide = cont.info.parimutuel.activeLongPositions.toNumber() / usdcDec;
+        const shortSide = cont.info.parimutuel.activeShortPositions.toNumber() / usdcDec;
+        const expired = cont.info.parimutuel.expired;
+        console.log(`\n Strike: $ ${strike}
+        \ Slot: ${slotId}
+        \ Longs: $ ${longSide}
+        \ Shorts: $ ${shortSide}
+        \ Exprired?: ${expired ? 'true' : 'false'}`);
+    });
 });
 Paris();
