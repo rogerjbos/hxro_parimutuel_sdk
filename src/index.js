@@ -44,8 +44,8 @@ const markets = sdk.getMarketPubkeys(config, market);
 // filter for the expiry interval, use the .filter() method on the markets array, and pass in a callback function that checks if the duration property of each element is equal to the desired expiry time in seconds.
 const marketTerm = 60; // The expires are in seconds, so this would be the 1 min
 const marketsByTime = markets.filter((market) => market.duration === marketTerm);
-console.log("marketsByTime");
-console.log(marketsByTime);
 const Paris = () => __awaiter(void 0, void 0, void 0, function* () {
     const parimutuels = yield parimutuelWeb3.getParimutuels(marketsByTime, 5);
+    console.log(JSON.stringify(parimutuels[0]));
 });
+Paris();

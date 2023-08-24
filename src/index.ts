@@ -15,10 +15,13 @@ const markets = sdk.getMarketPubkeys(config, market);
 const marketTerm = 60 // The expires are in seconds, so this would be the 1 min
 
 const marketsByTime = markets.filter( (market) => market.duration === marketTerm );
-console.log("marketsByTime")
-console.log(marketsByTime)
 
 const Paris = async () => {
+
     const parimutuels = await parimutuelWeb3.getParimutuels(marketsByTime, 5);
-}
+    
+    console.log(JSON.stringify(parimutuels[0]))
+};
+    
+Paris()
 
