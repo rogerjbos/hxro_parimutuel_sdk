@@ -34,13 +34,21 @@ const Paris = async () => {
         const shortSide = cont.info.parimutuel.activeShortPositions.toNumber() / usdcDec;
         
         const expired = cont.info.parimutuel.expired
-        
+        const totalVolume = longSide + shortSide
+        const longOdds = sdk.calculateNetOdd(longSide, totalVolume, 0.03)
+        const shortOdds = sdk.calculateNetOdd(shortSide, totalVolume, 0.03)
+        // Pass in 0.03 to take into account the 3% Hxro Network standard fee
+        // (50% of it goes to stakers)
+                
         console.log(`\n Strike: $ ${strike}
         \ Slot: ${slotId}
         \ Longs: $ ${longSide}
         \ Shorts: $ ${shortSide}
+        \ Long odds: $ ${longOdds}
+        \ Short odds: $ ${shortOdds}
         \ Exprired?: ${expired? 'true' : 'false'}`)
         })
     };
     
     Paris()
+
